@@ -16,7 +16,7 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 
 function Model() {
-  const { scene } = useGLTF("map4.glb"); 
+  const { scene } = useGLTF("map4.glb");
   return <primitive object={scene} scale={1} />;
 }
 
@@ -70,6 +70,7 @@ const MapPage = () => {
     }
   }, []);
 
+  // Function to handle clicks and touch events
   const handleIconClick = (facility) => {
     setSelectedFacility(facility);
     if (userLocation) {
@@ -97,15 +98,21 @@ const MapPage = () => {
             <button
               key={facility.id}
               onClick={() => handleIconClick(facility)}
-              className="flex items-center justify-center bg-white rounded-full shadow-md px-1 py-1 cursor-pointer" // Ensuring the button is clickable
-              style={{ zIndex: 50 }} // Adding z-index to bring the icons to the top
+              onTouchStart={() => handleIconClick(facility)} // Handle touch events
+              className="flex items-center justify-center bg-white rounded-full shadow-md px-3 py-3 cursor-pointer" // Larger padding for click area
+              style={{ zIndex: 50 }}
             >
-              <FontAwesomeIcon 
-                icon={facility.id === 1 ? faWater : 
-                      facility.id === 2 ? faToilet : 
-                      facility.id === 3 ? faWatchmanMonitoring : 
-                      faToriiGate} 
-                className="px-1 py-1 mr-1 text-xl" // Ensuring icon size is good for mobile
+              <FontAwesomeIcon
+                icon={
+                  facility.id === 1
+                    ? faWater
+                    : facility.id === 2
+                    ? faToilet
+                    : facility.id === 3
+                    ? faWatchmanMonitoring
+                    : faToriiGate
+                }
+                className="px-2 py-2 mr-1 text-xl" // Larger icon size
               />
               <p className="text-sm">{facility.name.toUpperCase()}</p>
             </button>
