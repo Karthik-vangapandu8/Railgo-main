@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from './firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-// import './Register.css';
+
 
 const Register = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -16,8 +16,6 @@ const Register = () => {
       const email = `${phoneNumber}@example.com`;
       const password = 'someSecurePassword';
       await createUserWithEmailAndPassword(auth, email, password);
-
-      // Navigate to NavigationPage with username
       navigate('/Map', { state: { username } });
     } catch (error) {
       console.error('Error registering user:', error);
@@ -77,3 +75,4 @@ const Register = () => {
 };
 
 export default Register;
+
