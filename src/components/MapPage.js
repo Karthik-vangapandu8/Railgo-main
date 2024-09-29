@@ -16,7 +16,7 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 
 function Model() {
-  const { scene } = useGLTF("map4.glb");
+  const { scene } = useGLTF("map4.glb"); 
   return <primitive object={scene} scale={1} />;
 }
 
@@ -80,51 +80,42 @@ const MapPage = () => {
   return (
     <div className="relative h-screen w-full bg-gray-400">
       {/* Search bar and user info */}
-      <div className="fixed z-50 flex flex-wrap items-center justify-between top-3 lg:left-20 left-4 right-4 lg:right-20 gap-2">
-        <div className="flex rounded-full shadow-md w-full lg:w-auto">
+      <div className="fixed z-50 flex items-center justify-between top-3 lg:left-20 left-4 right-4 lg:right-20">
+        <div className="flex rounded-full shadow-md">
           <input
             type="text"
             placeholder="Search..."
-            className="h-10 lg:w-96 w-full pl-2 rounded-l-full outline-none"
+            className="h-10 lg:w-96 pl-2 rounded-l-full outline-none"
           />
           <div className="bg-white h-10 flex items-center px-2 rounded-r-full">
             <FontAwesomeIcon icon={faSearch} />
           </div>
         </div>
 
-        {/* Facility icons */}
-        <div className="flex flex-wrap gap-2 justify-center">
+        <div className="flex gap-2">
           {facilitiesData.map((facility) => (
             <button
               key={facility.id}
               onClick={() => handleIconClick(facility)}
-              className="flex items-center justify-center bg-white rounded-full shadow-md px-2 py-1"
+              className="flex items-center justify-center bg-white rounded-full shadow-md px-1 py-1 cursor-pointer" // Ensuring the button is clickable
+              style={{ zIndex: 50 }} // Adding z-index to bring the icons to the top
             >
-              <FontAwesomeIcon
-                icon={
-                  facility.id === 1
-                    ? faWater
-                    : facility.id === 2
-                    ? faToilet
-                    : facility.id === 3
-                    ? faWatchmanMonitoring
-                    : faToriiGate
-                }
-                className="h-4 w-4 mr-2"
+              <FontAwesomeIcon 
+                icon={facility.id === 1 ? faWater : 
+                      facility.id === 2 ? faToilet : 
+                      facility.id === 3 ? faWatchmanMonitoring : 
+                      faToriiGate} 
+                className="px-1 py-1 mr-1 text-xl" // Ensuring icon size is good for mobile
               />
               <p className="text-sm">{facility.name.toUpperCase()}</p>
             </button>
           ))}
         </div>
-
-        {/* User info */}
         <div className="px-2 py-2 min-w-24 bg-[#ffcc00] rounded-full shadow-md flex items-center z-50">
           <FontAwesomeIcon icon={faUserCircle} className="h-6 w-6 mr-2" />
           {username && <span className="text-lg font-semibold">{username}</span>}
         </div>
       </div>
-
-      {/* Map Canvas */}
       <div className="w-full h-full">
         <Canvas camera={{ position: [0, 5, 10], fov: 50 }}>
           <ambientLight intensity={0.5} />
@@ -133,19 +124,26 @@ const MapPage = () => {
           <OrbitControls enableZoom={true} />
         </Canvas>
       </div>
-
-      {/* Zoom and Center Controls */}
-      <div className="fixed flex flex-col gap-2 right-4 bottom-10 z-50">
+      <div className="fixed flex flex-col gap-2 right-8 bottom-10 z-50">
         <div className="flex flex-col bg-white rounded-full shadow-md">
-          <button className="h-12 w-12 lg:h-10 lg:w-10 rounded-t-full bg-white hover:bg-gray-100 cursor-pointer">
-            <FontAwesomeIcon icon={faPlus} className="h-5 w-5 lg:h-4 lg:w-4 align-middle" />
+          <button
+            className="h-10 w-10 rounded-t-full bg-white hover:bg-gray-100 cursor-pointer"
+            style={{ zIndex: 50 }}
+          >
+            <FontAwesomeIcon icon={faPlus} className="h-[45%] w-[45%] align-middle" />
           </button>
-          <button className="h-12 w-12 lg:h-10 lg:w-10 rounded-b-full bg-white hover:bg-gray-100 cursor-pointer">
-            <FontAwesomeIcon icon={faMinus} className="h-5 w-5 lg:h-4 lg:w-4 align-middle" />
+          <button
+            className="h-10 w-10 rounded-b-full bg-white hover:bg-gray-100 cursor-pointer"
+            style={{ zIndex: 50 }}
+          >
+            <FontAwesomeIcon icon={faMinus} className="h-[45%] w-[45%] align-middle" />
           </button>
         </div>
-        <button className="h-12 w-12 lg:h-10 lg:w-10 rounded-full shadow-md bg-white cursor-pointer">
-          <FontAwesomeIcon icon={faCrosshairs} className="h-5 w-5 lg:h-4 lg:w-4 align-middle" />
+        <button
+          className="h-10 w-10 rounded-full shadow-md bg-white cursor-pointer"
+          style={{ zIndex: 50 }}
+        >
+          <FontAwesomeIcon icon={faCrosshairs} className="h-[70%] w-[70%] align-middle" />
         </button>
       </div>
     </div>
