@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { auth } from './firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
-
 const Register = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [username, setUsername] = useState('');
@@ -24,49 +23,56 @@ const Register = () => {
   };
 
   return (
-    <div className="h-screen w-full bg-black flex flex-col items-center justify-center">
-      <div className='flex flex-col items-center justify-center lg:border-[1px] rounded-lg lg:h-[90%] lg:w-[30%]'>
-        <div className="flex items-center mb-20">
-          <div>
-            <h1 className="text-white text-6xl font-bold"><span className='text-[#ffcc00]'>Rail</span> G</h1>
-          </div>
-          <img src="/name2.jpg" alt="Train Logo" className="h-16 w-16" />
+    <div className="min-h-screen w-full bg-gradient-to-b from-gray-900 to-black flex flex-col items-center justify-center p-4">
+      <div className='bg-gray-800 lg:border-[1px] lg:border-gray-700 p-8 rounded-xl shadow-lg w-full max-w-md'>
+        {/* Logo and Title */}
+        <div className="flex items-center justify-center mb-10">
+          <h1 className="text-4xl lg:text-5xl font-bold text-white">
+            <span className='text-[#ffcc00]'>Rail</span> G
+          </h1>
+          <img src="/name2.jpg" alt="Train Logo" className="h-12 w-12 lg:h-16 lg:w-16 ml-4" />
         </div>
 
-        <h1 className="text-white lg:text-3xl text-4xl mb-10">LOGIN</h1>
+        <h1 className="text-white text-3xl lg:text-4xl font-semibold text-center mb-10">
+          Sign Up
+        </h1>
 
-        <form className="flex flex-col items-center justify-center" onSubmit={handleRegister}>
-          <div className="w-full flex items-start justify-center mb-4">
-            <label className='text-white font-semibold text-xl lg:text-lg'>Phone No: </label>
-            <div className='flex pl-4'>
-              <span className="bg-white text-black rounded-l-sm py-1 px-1">+91</span>
+        {/* Registration Form */}
+        <form className="flex flex-col space-y-6" onSubmit={handleRegister}>
+          <div className="flex flex-col">
+            <label className='text-white font-semibold text-lg lg:text-xl mb-2'>Phone Number</label>
+            <div className='flex'>
+              <span className="bg-gray-600 text-white rounded-l-lg px-3 py-2">+91</span>
               <input
-                className='rounded-r-sm pl-2 lg:py-0 py-1'
+                className='rounded-r-lg pl-2 py-2 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-[#ffcc00]'
                 type="tel"
-                placeholder="Phone Number"
+                placeholder="Enter your phone number"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </div>
           </div>
 
-          <div className="w-full flex mb-12">
-            <label className='text-white font-semibold text-xl lg:text-lg'>User Name: </label>
-            <div className='flex pl-2'>
-              <input
-                className='rounded-sm pl-2  py-1'
-                type="text"
-                placeholder="User Name"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </div>
+          <div className="flex flex-col">
+            <label className='text-white font-semibold text-lg lg:text-xl mb-2'>Username</label>
+            <input
+              className='rounded-lg pl-2 py-2 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-[#ffcc00]'
+              type="text"
+              placeholder="Choose a username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
           </div>
 
-          <button type="submit" className="text-black bg-[#ffcc00] lg:py-1 lg:px-6 py-2 px-10 rounded-full">Register</button>
+          <button
+            type="submit"
+            className="w-full py-3 bg-[#ffcc00] text-black font-semibold rounded-full shadow-lg hover:bg-yellow-400 transition-all duration-300"
+          >
+            Register
+          </button>
         </form>
 
-        <footer className="absolute bottom-16 text-white">
+        <footer className="text-center mt-8 text-white">
           <p>Proudly Made in India <span role="img" aria-label="Indian Flag">🇮🇳</span></p>
         </footer>
       </div>
@@ -75,4 +81,3 @@ const Register = () => {
 };
 
 export default Register;
-
